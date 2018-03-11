@@ -1,16 +1,23 @@
 package com.stylefeng.guns.modular.system.controller;
 
-import com.stylefeng.guns.core.base.controller.BaseController;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.stylefeng.guns.core.log.LogObjectHolder;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.stylefeng.guns.common.persistence.model.Patient;
+import com.stylefeng.guns.core.base.controller.BaseController;
+import com.stylefeng.guns.core.log.LogObjectHolder;
+import com.stylefeng.guns.core.util.DateFormatUtil;
 import com.stylefeng.guns.modular.system.service.IPatientService;
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * 患者数据控制器
@@ -22,10 +29,19 @@ import com.stylefeng.guns.modular.system.service.IPatientService;
 @RequestMapping("/patient")
 public class PatientController extends BaseController {
 
+
     private String PREFIX = "/system/patient/";
 
     @Autowired
     private IPatientService patientService;
+
+    @InitBinder
+    protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+
 
     /**
      * 跳转到患者数据首页
@@ -47,10 +63,24 @@ public class PatientController extends BaseController {
      * 跳转到修改患者数据
      */
     @RequestMapping("/patient_update/{patientId}")
-    public String patientUpdate(@PathVariable Integer patientId, Model model) {
+    public String patientUpdate(@PathVariable Integer patientId, Model model) throws Exception {
         Patient patient = patientService.selectById(patientId);
-        model.addAttribute("item",patient);
-        LogObjectHolder.me().set(patient);
+        String updateTime = DateFormatUtil.changeDate(patient.getUpdateTime().toString());
+        String addTime = DateFormatUtil.changeDate(patient.getAddTime().toString());
+        Map<String, String> value = null;
+        try {
+            value = BeanUtils.describe(patient);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        value.put("updateTime", updateTime);
+        value.put("addTime", addTime);
+        model.addAttribute("item", value);
+        LogObjectHolder.me().set(value);
         return PREFIX + "patient_edit.html";
     }
 

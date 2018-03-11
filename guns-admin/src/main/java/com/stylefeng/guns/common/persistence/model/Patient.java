@@ -1,18 +1,17 @@
 package com.stylefeng.guns.common.persistence.model;
 
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author dx123
@@ -121,15 +120,15 @@ public class Patient extends Model<Patient> {
     @Override
     public String toString() {
         return "Patient{" +
-        "id=" + id +
-        ", name=" + name +
-        ", tel=" + tel +
-        ", idCard=" + idCard +
-        ", address=" + address +
-        ", bankNo=" + bankNo +
-        ", onHospital=" + onHospital +
-        ", updateTime=" + updateTime +
-        ", addTime=" + addTime +
-        "}";
+                "id=" + id +
+                ", name=" + name +
+                ", tel=" + tel +
+                ", idCard=" + idCard +
+                ", address=" + address +
+                ", bankNo=" + bankNo +
+                ", onHospital=" + onHospital +
+                ", updateTime=" + updateTime +
+                ", addTime=" + addTime +
+                "}";
     }
 }
