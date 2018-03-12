@@ -16,15 +16,105 @@
                                 <#button name="搜索" icon="fa-search" clickFun="Patient.search()"/>
                             </div>
                         </div>
+                        <!--数据脱敏-->
+                        <div class="row">
+                            <div class="ibox-title">
+                                <h4>数据脱敏规则制定</h4>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">
+                                            姓名
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="NameMaskType">
+                                        <option value="">元数据</option>
+                                        <option value="1">Hash脱敏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">
+                                            联系方式
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="TelMaskType">
+                                        <option value="">元数据</option>
+                                        <option value="1">Hash脱敏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">
+                                            身份证号
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="IdCardMaskType">
+                                        <option value="">元数据</option>
+                                        <option value="1">Hash脱敏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">
+                                            地址
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="AddressMaskType">
+                                        <option value="">元数据</option>
+                                        <option value="1">Hash脱敏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">
+                                            银行卡号脱敏
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="BankMaskType">
+                                        <option value="">元数据</option>
+                                        <option value="1">Hash脱敏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
                         <div class="hidden-xs" id="PatientTableToolbar" role="group">
                             @if(shiro.hasPermission("/patient/add")){
-                                <#button name="添加" icon="fa-plus" clickFun="Patient.openAddPatient()"/>
+                            <#button name="添加" icon="fa-plus" clickFun="Patient.openAddPatient()"/>
                             @}
                             @if(shiro.hasPermission("/patient/update")){
-                                <#button name="修改" icon="fa-edit" clickFun="Patient.openPatientDetail()" space="true"/>
+                            <#button name="修改" icon="fa-edit" clickFun="Patient.openPatientDetail()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/patient/delete")){
-                                <#button name="删除" icon="fa-remove" clickFun="Patient.delete()" space="true"/>
+                            <#button name="删除" icon="fa-remove" clickFun="Patient.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/patient/mask")){
+                            <#button name="数据脱敏" icon="fa-gears" clickFun="Patient.mask()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/patient/return")){
+                            <#button name="数据还原" icon="fa-gavel" clickFun="Patient.return()" space="true"/>
                             @}
                         </div>
                         <#table id="PatientTable"/>
