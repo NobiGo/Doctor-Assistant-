@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -98,7 +99,10 @@ public class PatientController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(Patient patient) {
+    public Object add(Patient patient)
+    {
+        patient.setUpdateTime(new Date());
+        patient.setAddTime(new Date());
         patientService.insert(patient);
         return super.SUCCESS_TIP;
     }
@@ -119,6 +123,7 @@ public class PatientController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(Patient patient) {
+        patient.setUpdateTime(new Date());
         patientService.updateById(patient);
         return super.SUCCESS_TIP;
     }

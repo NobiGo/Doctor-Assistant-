@@ -51,8 +51,6 @@ PatientInfoDlg.collectData = function () {
         .set('address')
         .set('bankNo')
         .set('onHospital')
-        // .set('updateTime')
-        // .set('addTime');
 }
 
 /**

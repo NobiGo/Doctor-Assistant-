@@ -19,4 +19,14 @@ public class DateFormatUtil {
         SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simple.format(date);
     }
+
+
+    public static String getDate() {
+        //将Date类型转成String类型,以String作为表名，保证表名唯一
+        Date now=new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String tablename=dateFormat.format(now);
+        System.out.println(tablename);
+        return null;
+    }
 }
