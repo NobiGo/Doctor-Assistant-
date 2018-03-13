@@ -14,4 +14,10 @@
         <result column="update_time" property="updateTime" />
         <result column="add_time" property="addTime" />
     </resultMap>
+
+    <!--&lt;!&ndash; 通用查询结果列 &ndash;&gt;-->
+    <!--<sql id="Base_Column_List">-->
+        <!--id, name, tel, id_card AS idCard, address, bank_no AS bankNo, on_hospital AS onHospital, update_time AS updateTime, add_time AS addTime-->
+    <!--</sql>-->
+
 </mapper>

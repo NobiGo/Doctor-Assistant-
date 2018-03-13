@@ -94,8 +94,10 @@ Patient.delete = function () {
 Patient.search = function () {
     var queryData = {};
     queryData['condition'] = $("#condition").val();
+    // queryData['NameMaskType'] = $("NameMaskType").val();
     Patient.table.refresh({query: queryData});
 };
+
 
 $(function () {
     var defaultColunms = Patient.initColumn();

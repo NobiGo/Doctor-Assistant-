@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -91,7 +91,9 @@ public class PatientController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return patientService.selectList(null);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", condition);
+        return patientService.selectByMap(map);
     }
 
     /**
@@ -99,8 +101,7 @@ public class PatientController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(Patient patient)
-    {
+    public Object add(Patient patient) {
         patient.setUpdateTime(new Date());
         patient.setAddTime(new Date());
         patientService.insert(patient);

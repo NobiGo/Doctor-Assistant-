@@ -10,7 +10,7 @@ import com.stylefeng.guns.common.persistence.model.Patient;
  * </p>
  *
  * @author stylefeng123
- * @since 2018-03-10
+ * @since 2018-03-13
  */
 public interface PatientMapper extends BaseMapper<Patient> {
 
