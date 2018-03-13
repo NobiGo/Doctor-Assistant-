@@ -1,10 +1,12 @@
 package com.stylefeng.guns.modular.system.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.stylefeng.guns.common.persistence.model.Patient;
 import com.stylefeng.guns.core.base.controller.BaseController;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.util.DateFormatUtil;
 import com.stylefeng.guns.modular.system.service.IPatientService;
+import com.zte.datamask.name.ChinaNameMask;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,11 +93,35 @@ public class PatientController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
+    public Object list(@RequestParam(required = false) String condition, @RequestParam(required = false) String NameMaskType) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("name", condition);
-        return patientService.selectByMap(map);
+        if (!StringUtils.isEmpty(condition))
+            map.put("name", condition);
+        List<Patient> value = patientService.selectByMap(map);
+        Map<String, String> mask = new HashMap<String, String>();
+        if (!StringUtils.isEmpty(NameMaskType))
+            mask.put("NameMaskType", NameMaskType);
+        return mask(value,mask);
     }
+
+//    /**
+//     * 获取脱敏数据
+//     */
+//    @RequestMapping(value = "/mask")
+//    @ResponseBody
+//    public Object mask(@RequestParam(required = false) String condition, @RequestParam(required = false) String NameMaskType) {
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        if (!StringUtils.isEmpty(condition))
+//            map.put("name", condition);
+//        List<Patient> value = patientService.selectByMap(map);
+//        if (NameMaskType.equals("1")) {
+//            for (int i = 0; i < value.size(); i++) {
+//                value.get(i).setName("雄");
+//            }
+//        }
+//        return value;
+//    }
+//
 
     /**
      * 新增患者数据
@@ -136,5 +163,44 @@ public class PatientController extends BaseController {
     @ResponseBody
     public Object detail(@PathVariable("patientId") Integer patientId) {
         return patientService.selectById(patientId);
+    }
+
+
+    //数据脱敏
+    private List<Patient> mask(List<Patient> value, Map<String, String> para) {
+        if (para.containsKey("NameMaskType")) {
+            String NameMaskType = para.get("NameMaskType");
+            switch (NameMaskType) {
+                //数据隐藏
+                case "1":
+                    for (Patient patient : value) {
+                        patient.setName(ChinaNameMask.masking_china_name_hiding(patient.getName(), 2, 3, '*'));
+                    }
+                    break;
+                //数据全名hash算法
+                case "2":
+                    for (Patient patient : value) {
+                        patient.setName(ChinaNameMask.masking_china_name_full_hash(patient.getName(), "dx"));
+                    }
+                    break;
+//                //数据脱敏-名
+//                case "3":
+//                    for (Patient patient : value) {
+//                        patient.setName(ChinaNameMask.masking_china_name_last_hash(patient.getName(), "dx"));
+//                    }
+//                    break;
+//                //数据脱敏姓
+//                case "4":
+//                    for (Patient patient : value) {
+//                        patient.setName(ChinaNameMask.masking_china_name_first_hash(patient.getName(), "dx"));
+//                    }
+//                    break;
+            }
+        }
+        String TelMaskType = para.get("TelMaskType");
+        String IdCardMaskType = para.get("IdCardMaskType");
+        String AddressMaskType = para.get("AddressMaskType");
+        String BankMaskType = para.get("BankMaskType");
+        return value;
     }
 }

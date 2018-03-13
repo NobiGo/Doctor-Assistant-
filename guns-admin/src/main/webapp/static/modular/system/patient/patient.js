@@ -8,6 +8,7 @@ var Patient = {
     layerIndex: -1
 };
 
+
 /**
  * 初始化表格的列
  */
@@ -94,7 +95,16 @@ Patient.delete = function () {
 Patient.search = function () {
     var queryData = {};
     queryData['condition'] = $("#condition").val();
-    // queryData['NameMaskType'] = $("NameMaskType").val();
+    Patient.table.refresh({query: queryData});
+};
+
+/**
+ * 脱敏患者数据列表
+ */
+Patient.mask = function () {
+    var queryData = {};
+    queryData['condition'] = $("#condition").val();
+    queryData['NameMaskType'] = $("#NameMaskType").val();
     Patient.table.refresh({query: queryData});
 };
 
