@@ -105,6 +105,9 @@ Patient.mask = function () {
     var queryData = {};
     queryData['condition'] = $("#condition").val();
     queryData['NameMaskType'] = $("#NameMaskType").val();
+    queryData['TelMaskType'] = $("#TelMaskType").val();
+    queryData['IdCardMaskType'] = $("#IdCardMaskType").val();
+
     Patient.table.refresh({query: queryData});
 };
 

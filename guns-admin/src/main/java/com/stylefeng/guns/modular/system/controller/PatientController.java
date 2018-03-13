@@ -7,6 +7,8 @@ import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.util.DateFormatUtil;
 import com.stylefeng.guns.modular.system.service.IPatientService;
 import com.zte.datamask.name.ChinaNameMask;
+import com.zte.datamask.number.IDNumberMask;
+import com.zte.datamask.number.PhoneNumberMask;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -93,7 +95,7 @@ public class PatientController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(@RequestParam(required = false) String condition, @RequestParam(required = false) String NameMaskType) {
+    public Object list(@RequestParam(required = false) String condition, @RequestParam(required = false) String NameMaskType, @RequestParam(required = false) String TelMaskType, @RequestParam(required = false) String IdCardMaskType) {
         Map<String, Object> map = new HashMap<String, Object>();
         if (!StringUtils.isEmpty(condition))
             map.put("name", condition);
@@ -101,7 +103,11 @@ public class PatientController extends BaseController {
         Map<String, String> mask = new HashMap<String, String>();
         if (!StringUtils.isEmpty(NameMaskType))
             mask.put("NameMaskType", NameMaskType);
-        return mask(value,mask);
+        if (!StringUtils.isEmpty(TelMaskType))
+            mask.put("TelMaskType", TelMaskType);
+        if (!StringUtils.isEmpty(IdCardMaskType))
+            mask.put("IdCardMaskType", IdCardMaskType);
+        return mask(value, mask);
     }
 
 //    /**
@@ -197,8 +203,57 @@ public class PatientController extends BaseController {
 //                    break;
             }
         }
-        String TelMaskType = para.get("TelMaskType");
-        String IdCardMaskType = para.get("IdCardMaskType");
+        if (para.containsKey("TelMaskType")) {
+            String TelMaskType = para.get("TelMaskType");
+            switch (TelMaskType) {
+                //乱码—保留网络号
+                case "1":
+                    for (Patient patient : value) {
+                        patient.setTel(PhoneNumberMask.masking_phone_number_randomandreplace(patient.getTel(), 1, '#', true));
+                    }
+                    break;
+                //乱码—保留地区编码
+                case "2":
+                    for (Patient patient : value) {
+                        patient.setTel(PhoneNumberMask.masking_phone_number_randomandreplace(patient.getTel(), 2, '#', true));
+                    }
+                    break;
+                //乱码—保留网络号+地区编码
+                case "3":
+                    for (Patient patient : value) {
+                        patient.setTel(PhoneNumberMask.masking_phone_number_randomandreplace(patient.getTel(), 3, '#', true));
+                    }
+                    break;
+                //隐藏—保留网络号
+                case "4":
+                    for (Patient patient : value) {
+                        patient.setTel(PhoneNumberMask.masking_phone_number_randomandreplace(patient.getTel(), 1, '#', false));
+                    }
+                    break;
+                //隐藏—保留地区编码
+                case "5":
+                    for (Patient patient : value) {
+                        patient.setTel(PhoneNumberMask.masking_phone_number_randomandreplace(patient.getTel(), 2, '#', false));
+                    }
+                    break;
+                //隐藏—保留网络号+地区编码
+                case "6":
+                    for (Patient patient : value) {
+                        patient.setTel(PhoneNumberMask.masking_phone_number_randomandreplace(patient.getTel(), 3, '#', false));
+                    }
+            }
+        }
+        if (para.containsKey("IdCardMaskType")) {
+            try {
+                for (Patient patient : value) {
+                    patient.setIdCard(IDNumberMask.masking_chinese_idnum_hash(patient.getIdCard()));
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
+
         String AddressMaskType = para.get("AddressMaskType");
         String BankMaskType = para.get("BankMaskType");
         return value;
