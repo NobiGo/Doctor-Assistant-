@@ -48,6 +48,11 @@
                         return $.extend(me.queryParams, param);
                     }, // 向后台传递的自定义参数
                     sidePagination: this.paginationType,   //分页方式：client客户端分页，server服务端分页（*）
+                    showExport:true,//是否显示导出
+                    exportDataType:'all',
+                    exportOptions:{
+                        ignoreColumn:['selectItem']
+                    },
                     search: false,      		//是否显示表格搜索，此搜索是客户端搜索，不会进服务端
                     strictSearch: true,			//设置为 true启用 全匹配搜索，否则为模糊搜索
                     showColumns: true,     		//是否显示所有的列
@@ -61,7 +66,8 @@
                     icons: {
                         refresh: 'glyphicon-repeat',
                         toggle: 'glyphicon-list-alt',
-                        columns: 'glyphicon-list'
+                        columns: 'glyphicon-list',
+                        export:'glyphicon-export icon-share'
                     },
                     iconSize: 'outline'
                 });
