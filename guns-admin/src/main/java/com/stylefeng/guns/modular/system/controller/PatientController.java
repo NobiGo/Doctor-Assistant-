@@ -6,7 +6,9 @@ import com.stylefeng.guns.core.base.controller.BaseController;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.util.DateFormatUtil;
 import com.stylefeng.guns.modular.system.service.IPatientService;
+import com.zte.datamask.address.ChinaAddressMask;
 import com.zte.datamask.name.ChinaNameMask;
+import com.zte.datamask.number.BankCardNumMask;
 import com.zte.datamask.number.IDNumberMask;
 import com.zte.datamask.number.PhoneNumberMask;
 import org.apache.commons.beanutils.BeanUtils;
@@ -95,18 +97,28 @@ public class PatientController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(@RequestParam(required = false) String condition, @RequestParam(required = false) String NameMaskType, @RequestParam(required = false) String TelMaskType, @RequestParam(required = false) String IdCardMaskType) {
+    public Object list(@RequestParam(required = false) String condition, @RequestParam(required = false) String NameMaskType, @RequestParam(required = false) String TelMaskType, @RequestParam(required = false) String IdCardMaskType, @RequestParam(required = false) String AddressMaskType, @RequestParam(required = false) String BankMaskType) {
         Map<String, Object> map = new HashMap<String, Object>();
+        //姓名查询
         if (!StringUtils.isEmpty(condition))
             map.put("name", condition);
         List<Patient> value = patientService.selectByMap(map);
         Map<String, String> mask = new HashMap<String, String>();
+        //姓名脱敏
         if (!StringUtils.isEmpty(NameMaskType))
             mask.put("NameMaskType", NameMaskType);
+        //手机号脱敏
         if (!StringUtils.isEmpty(TelMaskType))
             mask.put("TelMaskType", TelMaskType);
+        //身份证号码脱敏
         if (!StringUtils.isEmpty(IdCardMaskType))
             mask.put("IdCardMaskType", IdCardMaskType);
+        //地址脱敏
+        if (!StringUtils.isEmpty(AddressMaskType))
+            mask.put("AddressMaskType", AddressMaskType);
+        //银行卡脱敏
+        if (!StringUtils.isEmpty(BankMaskType))
+            mask.put("BankMaskType", BankMaskType);
         return mask(value, mask);
     }
 
@@ -254,8 +266,37 @@ public class PatientController extends BaseController {
         }
 
 
-        String AddressMaskType = para.get("AddressMaskType");
-        String BankMaskType = para.get("BankMaskType");
+        if (para.containsKey("AddressMaskType")) {
+            String AddressMaskType = para.get("AddressMaskType");
+            switch (AddressMaskType) {
+                case "1":
+                case "2":
+                case "3":
+                    for (Patient patient : value) {
+                        patient.setAddress(ChinaAddressMask.masking_china_address_hash(patient.getAddress(), "dx", Integer.valueOf(AddressMaskType)));
+                    }
+                    break;
+                case "4":
+                case "5":
+                case "6":
+                    for (Patient patient : value) {
+                        patient.setAddress(ChinaAddressMask.masking_china_address_nullRegion(patient.getAddress(),Integer.valueOf(AddressMaskType)-3,'*',10));
+                    }
+                    break;
+            }
+        }
+        boolean flag = true;
+        if (para.containsKey("BankMaskType")) {
+            String BankMaskType = para.get("BankMaskType");
+            switch (BankMaskType) {
+                case "1":
+                    for (Patient patient : value) {
+                        flag = patient.getBankNo().length() == 19 ? true : false;
+                        patient.setBankNo(BankCardNumMask.masking_bank_cardnum_displacement(3, patient.getBankNo(), flag));
+                    }
+                    break;
+            }
+        }
         return value;
     }
 }

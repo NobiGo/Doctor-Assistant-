@@ -107,7 +107,8 @@ Patient.mask = function () {
     queryData['NameMaskType'] = $("#NameMaskType").val();
     queryData['TelMaskType'] = $("#TelMaskType").val();
     queryData['IdCardMaskType'] = $("#IdCardMaskType").val();
-
+    queryData['AddressMaskType'] = $("#AddressMaskType").val();
+    queryData['BankMaskType'] = $("#BankMaskType").val();
     Patient.table.refresh({query: queryData});
 };
 
