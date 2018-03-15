@@ -113,6 +113,18 @@ Patient.mask = function () {
 };
 
 
+/**
+ * 清空数据脱敏条件
+ */
+Patient.return = function () {
+    $("#NameMaskType").val("");
+    $("#TelMaskType").val("");
+    $("#IdCardMaskType").val("");
+    $("#AddressMaskType").val("");
+    $("#BankMaskType").val("");
+    Patient.search();
+};
+
 $(function () {
     var defaultColunms = Patient.initColumn();
     var table = new BSTable(Patient.id, "/patient/list", defaultColunms);
