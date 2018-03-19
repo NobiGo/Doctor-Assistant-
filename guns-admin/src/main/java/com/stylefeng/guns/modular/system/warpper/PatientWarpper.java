@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class PatientWarpper extends BaseControllerWarpper {
 
-    public PatientWarpper(List<Map<String, Object>> list) {
+    public PatientWarpper(List<Map<String, String>> list) {
         super(list);
     }
 

@@ -119,7 +119,18 @@ public class PatientController extends BaseController {
         //银行卡脱敏
         if (!StringUtils.isEmpty(BankMaskType))
             mask.put("BankMaskType", BankMaskType);
+
         return mask(value, mask);
+//        List<Patient> result = mask(value, mask);
+//        List<Map<String, String>> resultMap = new LinkedList<Map<String, String>>();
+//        try {
+//            for (Patient patient : result) {
+//                resultMap.add(BeanUtils.describe(patient));
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return new PatientWarpper(resultMap).warp();
     }
 
 //    /**
@@ -280,7 +291,7 @@ public class PatientController extends BaseController {
                 case "5":
                 case "6":
                     for (Patient patient : value) {
-                        patient.setAddress(ChinaAddressMask.masking_china_address_nullRegion(patient.getAddress(),Integer.valueOf(AddressMaskType)-3,'*',10));
+                        patient.setAddress(ChinaAddressMask.masking_china_address_nullRegion(patient.getAddress(), Integer.valueOf(AddressMaskType) - 3, '*', 10));
                     }
                     break;
             }
@@ -296,6 +307,11 @@ public class PatientController extends BaseController {
                     }
                     break;
             }
+        }
+        //改变是否住院的值
+        for (Patient patient : value) {
+            flag = patient.getBankNo().length() == 19 ? true : false;
+            patient.setBankNo(BankCardNumMask.masking_bank_cardnum_displacement(3, patient.getBankNo(), flag));
         }
         return value;
     }
