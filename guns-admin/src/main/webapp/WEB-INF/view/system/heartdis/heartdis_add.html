@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" underline="true"/>
+                            <#input id="patientId" name="" underline="true"/>
+                            <#input id="age" name="年龄" underline="true"/>
+                            <#input id="sex" name="性别" underline="true"/>
+                            <#input id="cp" name="胸部疼痛类型" underline="true"/>
+                            <#input id="trestbpss" name=" 静息血压" underline="true"/>
+                            <#input id="chol" name="以mg/dl为单位的血清类固醇" underline="true"/>
+                            <#input id="fbs" name="空腹血糖（空腹血糖 > 120 mg/dl) (1 = 是; 0 = 否)）"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="restecg" name="（0,1,2）" underline="true"/>
+                            <#input id="thalach" name="达到的最大心率" underline="true"/>
+                            <#input id="exang" name="是否运动诱发的心绞痛 (1 = 是; 0 = 否)" underline="true"/>
+                            <#input id="oldpeak" name="由与相对休息有明显差异的运动诱导的ST段压低" underline="true"/>
+                            <#input id="slope" name="" underline="true"/>
+                            <#input id="ca" name="被透视荧光检查（flourosopy）标注颜色的大血管的数量 (0-3)" underline="true"/>
+                            <#input id="thal" name="" underline="true"/>
+                            <#input id="num" name="心脏病的诊断 (冠状动脉疾病状态)" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="HeartdisInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="HeartdisInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/heartdis/heartdis_info.js"></script>
+@}
