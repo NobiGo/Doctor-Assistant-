@@ -1,16 +1,20 @@
 package com.stylefeng.guns.modular.system.controller;
 
+import com.stylefeng.guns.common.persistence.model.Heartdis;
 import com.stylefeng.guns.core.base.controller.BaseController;
+import com.stylefeng.guns.core.log.LogObjectHolder;
+import com.stylefeng.guns.modular.system.service.IHeartdisService;
+import com.stylefeng.guns.modular.system.warpper.PreHeartdisWarpper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.stylefeng.guns.core.log.LogObjectHolder;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.stylefeng.guns.common.persistence.model.Heartdis;
-import com.stylefeng.guns.modular.system.service.IHeartdisService;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 疾病预测控制器
@@ -49,7 +53,7 @@ public class HeartdisController extends BaseController {
     @RequestMapping("/heartdis_update/{heartdisId}")
     public String heartdisUpdate(@PathVariable Integer heartdisId, Model model) {
         Heartdis heartdis = heartdisService.selectById(heartdisId);
-        model.addAttribute("item",heartdis);
+        model.addAttribute("item", heartdis);
         LogObjectHolder.me().set(heartdis);
         return PREFIX + "heartdis_edit.html";
     }
@@ -60,7 +64,9 @@ public class HeartdisController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return heartdisService.selectList(null);
+//        return heartdisService.selectList(null);
+        List<Map<String, Object>> preHeartdis = heartdisService.selectMaps(null);
+        return super.warpObject(new PreHeartdisWarpper(preHeartdis));
     }
 
     /**

@@ -14,22 +14,22 @@ var Heartdis = {
 Heartdis.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: true, align: 'center', valign: 'middle'},
+        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
         {title: '患者id', field: 'patientId', visible: true, align: 'center', valign: 'middle'},
         {title: '年龄', field: 'age', visible: true, align: 'center', valign: 'middle'},
         {title: '性别', field: 'sex', visible: true, align: 'center', valign: 'middle'},
         {title: '胸部疼痛', field: 'cp', visible: true, align: 'center', valign: 'middle'},
         {title: ' 静息血压', field: 'trestbpss', visible: true, align: 'center', valign: 'middle'},
         {title: '血清类固醇', field: 'chol', visible: true, align: 'center', valign: 'middle'},
-        {title: '空腹血糖', field: 'fbs', visible: true, align: 'center', valign: 'middle'},
+        {title: '(空腹血糖>120mg/dl', field: 'fbs', visible: true, align: 'center', valign: 'middle'},
         {title: '心电图结果', field: 'restecg', visible: true, align: 'center', valign: 'middle'},
         {title: '最大心率', field: 'thalach', visible: true, align: 'center', valign: 'middle'},
         {title: '是否心绞痛', field: 'exang', visible: true, align: 'center', valign: 'middle'},
         {title: 'ST段压低', field: 'oldpeak', visible: true, align: 'center', valign: 'middle'},
         {title: '心电图倾斜度', field: 'slope', visible: true, align: 'center', valign: 'middle'},
-        {title: '血管数', field: 'ca', visible: true, align: 'center', valign: 'middle'},
         {title: '缺陷种类', field: 'thal', visible: true, align: 'center', valign: 'middle'},
-        {title: '是否患病', field: 'num', visible: true, align: 'center', valign: 'middle'}
+        {title: '心电图诊断', field: 'num', visible: true, align: 'center', valign: 'middle'},
+        {title: '患病情况', field: 'ca', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 

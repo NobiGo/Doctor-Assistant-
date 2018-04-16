@@ -113,4 +113,46 @@ public interface IConstantFactory {
      */
     List<Integer> getParentDeptIds(Integer deptid);
 
+    /**
+     * 获取对应的胸部疼痛类型
+     * 痛感由痛到无
+     */
+    public String getCpValue(Integer integer);
+
+    /**
+     * 运动高峰期的ST段斜率
+     */
+    public String getSlopeValue(Integer integer);
+
+    /**
+     * 是否患病
+     */
+    public String getStatusValue(Integer integer);
+
+    /**
+     * 是否存在缺陷
+     */
+    public String getThalValue(Integer integer);
+
+    /**
+     * 心电图情况表
+     */
+    public String getNumValue(Integer integer);
+
+    /**
+     * 运动时是否有绞心痛
+     */
+    public String getExangValue(Integer integer);
+
+    /**
+     * 获取病人性别
+     */
+    public String getSexValue(Integer integer);
+
+    /**
+     * 获取空腹血糖
+     */
+    public String getFbsValue(Integer integer);
+
+    public String getRestecgValue(Integer integer);
 }

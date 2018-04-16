@@ -1,15 +1,15 @@
 package com.stylefeng.guns.common.persistence.dao;
 
-import com.stylefeng.guns.common.persistence.model.Heartdis;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.stylefeng.guns.common.persistence.model.Heartdis;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author stylefeng123
- * @since 2018-03-19
+ * @since 2018-03-20
  */
 public interface HeartdisMapper extends BaseMapper<Heartdis> {
 

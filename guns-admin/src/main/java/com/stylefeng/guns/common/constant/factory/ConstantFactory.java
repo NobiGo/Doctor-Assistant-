@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.stylefeng.guns.common.constant.cache.Cache;
 import com.stylefeng.guns.common.constant.cache.CacheKey;
+import com.stylefeng.guns.common.constant.enums.*;
 import com.stylefeng.guns.common.constant.state.ManagerStatus;
 import com.stylefeng.guns.common.constant.state.MenuStatus;
 import com.stylefeng.guns.common.persistence.dao.*;
@@ -305,7 +306,7 @@ public class ConstantFactory implements IConstantFactory {
 
         ArrayList<Integer> deptids = new ArrayList<>();
 
-        if(depts != null && depts.size() > 0){
+        if (depts != null && depts.size() > 0) {
             for (Dept dept : depts) {
                 deptids.add(dept.getId());
             }
@@ -329,5 +330,51 @@ public class ConstantFactory implements IConstantFactory {
         return parentDeptIds;
     }
 
+    public String getCpValue(Integer integer) {
+        return CpEnums.valueOf(integer);
+    }
+
+    @Override
+    public String getSlopeValue(Integer integer) {
+        return SlopeEnum.valueOf(integer);
+    }
+
+    @Override
+    public String getStatusValue(Integer integer) {
+        if (integer == 0)
+            return "正常";
+        else
+            return "患病";
+    }
+
+    @Override
+    public String getThalValue(Integer integer) {
+        return ThalEnums.valueOf(integer);
+    }
+
+    @Override
+    public String getNumValue(Integer integer) {
+        return NumEnums.valueOf(integer);
+    }
+
+    @Override
+    public String getExangValue(Integer integer) {
+        return ExangEnums.valueOf(integer);
+    }
+
+    @Override
+    public String getSexValue(Integer integer) {
+        return SexEnums.valueOf(integer);
+    }
+
+    @Override
+    public String getFbsValue(Integer integer) {
+        return ExangEnums.valueOf(integer);
+    }
+
+    @Override
+    public String getRestecgValue(Integer integer) {
+        return RestecgEnums.valueOf(integer);
+    }
 
 }

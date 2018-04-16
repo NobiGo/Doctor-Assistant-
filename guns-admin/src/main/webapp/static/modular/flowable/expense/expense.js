@@ -14,11 +14,11 @@ var Expense = {
 Expense.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: '报销id', field: 'id', visible: true, align: 'center', valign: 'middle'},
-        {title: '报销金额', field: 'money', visible: true, align: 'center', valign: 'middle'},
+        {title: '预约id', field: 'id', visible: true, align: 'center', valign: 'middle'},
+        // {title: '报销金额', field: 'money', visible: true, align: 'center', valign: 'middle'},
         {title: '描述', field: 'desc', visible: true, align: 'center', valign: 'middle'},
         {title: '状态', field: 'stateName', visible: true, align: 'center', valign: 'middle'},
-        {title: '创建时间', field: 'createtime', visible: true, align: 'center', valign: 'middle'},
+        {title: '预约时间', field: 'createtime', visible: true, align: 'center', valign: 'middle'},
         {
             title: '操作', visible: true, align: 'center', valign: 'middle', formatter: function (value, row, index) {
             if (row.state == 3) {

@@ -22,9 +22,6 @@
         <result column="num" property="num" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, patient_id AS patientId, age, sex, cp, trestbpss, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, num
-    </sql>
+
 
 </mapper>
