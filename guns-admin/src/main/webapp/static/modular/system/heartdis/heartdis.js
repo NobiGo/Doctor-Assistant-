@@ -21,7 +21,7 @@ Heartdis.initColumn = function () {
         {title: '胸部疼痛', field: 'cp', visible: true, align: 'center', valign: 'middle'},
         {title: ' 静息血压', field: 'trestbpss', visible: true, align: 'center', valign: 'middle'},
         {title: '血清类固醇', field: 'chol', visible: true, align: 'center', valign: 'middle'},
-        {title: '(空腹血糖>120mg/dl', field: 'fbs', visible: true, align: 'center', valign: 'middle'},
+        {title: '空腹血糖>120mg/dl', field: 'fbs', visible: true, align: 'center', valign: 'middle'},
         {title: '心电图结果', field: 'restecg', visible: true, align: 'center', valign: 'middle'},
         {title: '最大心率', field: 'thalach', visible: true, align: 'center', valign: 'middle'},
         {title: '是否心绞痛', field: 'exang', visible: true, align: 'center', valign: 'middle'},

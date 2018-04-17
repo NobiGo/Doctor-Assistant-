@@ -4,7 +4,8 @@ public enum NumEnums {
     H_TYPE(0, "H"),
     S1_TYPE(1, "S1"),
     S2_TYPE(2, "S2"),
-    S3_TYPE(3, "S3");
+    S3_TYPE(3, "S3"),
+    S4_TYPE(4, "S4");
 
     private Integer code;
     private String value;
