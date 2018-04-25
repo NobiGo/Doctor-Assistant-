@@ -19,7 +19,12 @@ import org.junit.Test;
 public class HrtDisDetModel {
 
     public HrtDisDetModel() {
+        System.out.println(NaiveBayesModelFunction());
+    }
 
+
+    public static void main(String[] args) {
+        System.out.println(new HrtDisDetModel().NaiveBayesModelFunction());
     }
 
     /*
@@ -82,7 +87,7 @@ public class HrtDisDetModel {
      * }
      **/
     @Test
-    public  String   NaiveBayesModelFunction() {
+    public String NaiveBayesModelFunction() {
         //		if(args.length < 2) throw new RuntimeException(" Please Use : HrtDisDetModel <training-data-path> <path-to-store-generated-model>");
         String[] args = new String[2];
         args[0] = "hdfs://192.168.71.130:9000/hdfs/data/heart_dis_training_data.csv";
@@ -102,10 +107,9 @@ public class HrtDisDetModel {
 
         JavaRDD<String> dsLines = jctx.textFile(trainDataLoc);
         JavaRDD<LabeledPoint> _modelTrainData = dsLines.map(new DataToModelAdapterMapper());
-
         NaiveBayesModel _model = NaiveBayes.train(_modelTrainData.rdd());
         _model.save(jctx.sc(), modelStorageLoc);
         ctxBuilder.closeCtx();
-       return "NaiveBayesModel - 模型训练成功";
+        return "NaiveBayesModel - 模型训练成功";
     }
 }

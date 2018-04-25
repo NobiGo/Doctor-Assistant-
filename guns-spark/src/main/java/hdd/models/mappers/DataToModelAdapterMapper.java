@@ -7,7 +7,6 @@ import org.apache.spark.mllib.regression.LabeledPoint;
 
 public class DataToModelAdapterMapper implements Function<String, LabeledPoint> {
 
-    @Override
     public LabeledPoint call(String dataRow) throws Exception {
         String newLine = dataRow.replaceAll("\\?", "99.0");
         String[] tokens = newLine.split(",");
@@ -23,9 +22,7 @@ public class DataToModelAdapterMapper implements Function<String, LabeledPoint> 
 
         Double classValue = 0.0;
         if (lastToken.intValue() > 0) classValue = 1.0;
-
         LabeledPoint _lp = new LabeledPoint(classValue, featuresVector);
-
         return _lp;
     }
 
