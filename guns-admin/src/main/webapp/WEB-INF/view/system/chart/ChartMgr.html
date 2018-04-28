@@ -1,0 +1,31 @@
+@layout("/common/_container.html"){
+
+<style>
+    .div-a{ float:left;width:30%;border:1px solid #000}
+    .div-b{ float:left;width:30%;border:1px solid #000}
+    .div-c{ float:left;width:30%;border:1px solid #000}
+</style>
+
+
+<div class="row">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>图表统计</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="div-a">
+                    <canvas id="chart"></canvas>
+                </div>
+                <div class="div-b" >
+                    <canvas id="chartCp"></canvas>
+                </div>
+                <div class="div-c" >
+                    <canvas id="chartExang"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/chart/chartMgr.js"></script>
+@}

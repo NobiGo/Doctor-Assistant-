@@ -18,7 +18,7 @@ public class MlSparkController extends BaseController {
     @RequestMapping("")
     @ResponseBody
     public synchronized String index() {
-        System.out.print(new HrtDisDetModel().NaiveBayesModelFunction());
+//        System.out.print(new HrtDisDetModel().NaiveBayesModelFunction());
         return "true";
     }
 
