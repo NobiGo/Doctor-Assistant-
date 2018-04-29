@@ -29,7 +29,19 @@ PreHeartdis.initColumn = function () {
         {title: '心电图倾斜度', field: 'slope', visible: true, align: 'center', valign: 'middle'},
         {title: '缺陷种类', field: 'thal', visible: true, align: 'center', valign: 'middle'},
         {title: '心电图诊断', field: 'num', visible: true, align: 'center', valign: 'middle'},
-        {title: '是否患病', field: 'ca', visible: true, align: 'center', valign: 'middle'}
+        {title: '预测结果', field: 'ca', visible: true, align: 'center', valign: 'middle'},
+        {
+            title: '操作', visible: true, align: 'center', valign: 'middle', formatter: function (value, row, index) {
+                // if (row.state == 3) {
+                //     return '<button type="button" class="btn btn-danger button-margin" onclick="PreHeartdis.delete(' + row.id + ')" id=""><i class="fa fa-arrows-alt"></i>&nbsp;删除</button>';
+                // } else {
+                    return '<button type="button" class="btn btn-primary button-margin" onclick="PreHeartdis.update(' + row.id + ')" id=""><i class="fa fa-edit"></i>&nbsp;纠正诊断结果</button>' +
+                        '<button type="button" class="btn btn-danger button-margin" onclick="PreHeartdis.delete(' + row.id + ')" id=""><i class="fa fa-arrows-alt"></i>&nbsp;确认诊断结果</button>';
+                // }
+            }
+        }
+
+
     ];
 };
 
@@ -80,19 +92,34 @@ PreHeartdis.openPreHeartdisDetail = function () {
 };
 
 /**
- * 删除
+ * 确认诊断结果
  */
-PreHeartdis.delete = function () {
-    if (this.check()) {
+PreHeartdis.delete = function (id) {
         var ajax = new $ax(Feng.ctxPath + "/preHeartdis/delete", function (data) {
-            Feng.success("删除成功!");
+            Feng.success("诊断成功!");
             PreHeartdis.table.refresh();
         }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
+            Feng.error("诊断失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("preHeartdisId", this.seItem.id);
+        ajax.set("preHeartdisId", id);
         ajax.start();
-    }
+};
+
+
+
+
+/**
+ * 纠正诊断结果
+ */
+PreHeartdis.update = function (id) {
+    var ajax = new $ax(Feng.ctxPath + "/preHeartdis/updateStatus", function (data) {
+        Feng.success("纠正成功!");
+        PreHeartdis.table.refresh();
+    }, function (data) {
+        Feng.error("纠正失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set("preHeartdisId", id);
+    ajax.start();
 };
 
 /**

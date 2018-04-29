@@ -1,5 +1,6 @@
 package com.stylefeng.guns.modular.system.controller;
 
+import com.stylefeng.guns.common.persistence.model.Heartdis;
 import com.stylefeng.guns.common.persistence.model.PreHeartdis;
 import com.stylefeng.guns.core.base.controller.BaseController;
 import com.stylefeng.guns.core.log.LogObjectHolder;
@@ -89,14 +90,28 @@ public class PreHeartdisController extends BaseController {
     }
 
     /**
-     * 修改
+     * 更改状态
      */
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/updateStatus")
     @ResponseBody
-    public Object update(PreHeartdis preHeartdis) {
+    public Object updateStatus(@RequestParam Integer preHeartdisId) {
+        PreHeartdis preHeartdis = preHeartdisService.selectById(preHeartdisId);
+        preHeartdis.setCa(preHeartdis.getCa()==0?1:0);
         preHeartdisService.updateById(preHeartdis);
-        return super.SUCCESS_TIP;
+        return SUCCESS_TIP;
     }
+
+
+
+//    /**
+//     * 修改
+//     */
+//    @RequestMapping(value = "/update")
+//    @ResponseBody
+//    public Object update(PreHeartdis preHeartdis) {
+//        preHeartdisService.updateById(preHeartdis);
+//        return super.SUCCESS_TIP;
+//    }
 
     /**
      * 详情
