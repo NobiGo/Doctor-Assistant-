@@ -1,9 +1,9 @@
 package com.stylefeng.guns.modular.system.controller;
 
-import com.stylefeng.guns.common.persistence.model.Heartdis;
 import com.stylefeng.guns.common.persistence.model.PreHeartdis;
 import com.stylefeng.guns.core.base.controller.BaseController;
 import com.stylefeng.guns.core.log.LogObjectHolder;
+import com.stylefeng.guns.modular.system.service.IHeartdisService;
 import com.stylefeng.guns.modular.system.service.IPreHeartdisService;
 import com.stylefeng.guns.modular.system.warpper.PreHeartdisWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,8 @@ public class PreHeartdisController extends BaseController {
 
     @Autowired
     private IPreHeartdisService preHeartdisService;
+    @Autowired
+    private IHeartdisService heartdisService;
 
     /**
      * 跳转到首页
@@ -85,6 +87,7 @@ public class PreHeartdisController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(@RequestParam Integer preHeartdisId) {
+        PreHeartdis preHeartdis = preHeartdisService.selectById(preHeartdisId);
         preHeartdisService.deleteById(preHeartdisId);
         return SUCCESS_TIP;
     }
@@ -96,11 +99,10 @@ public class PreHeartdisController extends BaseController {
     @ResponseBody
     public Object updateStatus(@RequestParam Integer preHeartdisId) {
         PreHeartdis preHeartdis = preHeartdisService.selectById(preHeartdisId);
-        preHeartdis.setCa(preHeartdis.getCa()==0?1:0);
+        preHeartdis.setCa(preHeartdis.getCa() == 0 ? 1 : 0);
         preHeartdisService.updateById(preHeartdis);
         return SUCCESS_TIP;
     }
-
 
 
 //    /**

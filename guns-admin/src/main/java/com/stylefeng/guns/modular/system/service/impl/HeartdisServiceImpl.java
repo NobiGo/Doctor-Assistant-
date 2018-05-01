@@ -60,4 +60,19 @@ public class HeartdisServiceImpl extends ServiceImpl<HeartdisMapper, Heartdis> i
         List<Heartdis> listHeartdis = heartdisMapper.selectByMap(value);
         return new Long(listHeartdis.size());
     }
+
+    @Override
+    public Long countByAge(Integer integer, Integer integer2) {
+        return heartdisMapper.countByAge(integer, integer2, 1);
+    }
+
+    @Override
+    public Long countByThalach(Integer integer, Integer integer2) {
+        return heartdisMapper.countByThalach(integer, integer2, 1);
+    }
+
+    @Override
+    public Long countByChol(Integer integer, Integer integer2) {
+        return heartdisMapper.countByChol(integer, integer2, 1);
+    }
 }

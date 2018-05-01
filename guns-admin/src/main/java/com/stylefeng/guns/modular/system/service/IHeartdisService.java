@@ -13,8 +13,16 @@ import com.stylefeng.guns.common.persistence.model.Heartdis;
  */
 public interface IHeartdisService extends IService<Heartdis> {
     Long countBySex(Integer integer);
+
     Long countByStatus(Integer integer);
+
     Long countByCp(Integer integer);
+
     Long countByExang(Integer integer);
 
+    Long countByAge(Integer integer, Integer integer2);
+
+    Long countByThalach(Integer integer, Integer integer2);
+
+    Long countByChol(Integer integer, Integer integer2);
 }

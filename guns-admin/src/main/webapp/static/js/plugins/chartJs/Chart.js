@@ -32,6 +32,8 @@ module.exports = {
    keyword: keyword
 }
 
+// Chart.defaults.global.tooltipTemplate="<%= label %>#Pageview:<%= value %>";
+
 function getRgba(string) {
    if (!string) {
       return;

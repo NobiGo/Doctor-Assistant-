@@ -1,27 +1,56 @@
 @layout("/common/_container.html"){
 
 <style>
-    .div-a{ float:left;width:30%;border:1px solid #000}
-    .div-b{ float:left;width:30%;border:1px solid #000}
-    .div-c{ float:left;width:30%;border:1px solid #000}
+    .div-a {
+        float: left;
+        width: 30%;
+        border: 1px solid #000
+    }
+
+    .div-b {
+        float: left;
+        width: 30%;
+        border: 1px solid #000
+    }
+
+    .div-c {
+        float: left;
+        width: 30%;
+        border: 1px solid #000
+    }
 </style>
-
-
 <div class="row">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>图表统计</h5>
+            <h5>患者情况离线图表统计</h5>
         </div>
         <div class="ibox-content">
             <div class="row">
                 <div class="div-a">
                     <canvas id="chart"></canvas>
+                    <h3 align="center">性别分析图</h3>
                 </div>
-                <div class="div-b" >
+                <div class="div-b">
                     <canvas id="chartCp"></canvas>
+                    <h3 align="center">胸痛情况分析图</h3>
                 </div>
-                <div class="div-c" >
+                <div class="div-c">
                     <canvas id="chartExang"></canvas>
+                    <h3 align="center">跑步后心绞痛情况分析图</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="div-a">
+                    <canvas id="chartAge"></canvas>
+                    <h3 align="center">年龄分布图</h3>
+                </div>
+                <div class="div-b">
+                    <canvas id="chartThalach"></canvas>
+                    <h3 align="center">最大心率分布图</h3>
+                </div>
+                <div class="div-c">
+                    <canvas id="chartChol"></canvas>
+                    <h3 align="center">血清类固醇分布图</h3>
                 </div>
             </div>
         </div>

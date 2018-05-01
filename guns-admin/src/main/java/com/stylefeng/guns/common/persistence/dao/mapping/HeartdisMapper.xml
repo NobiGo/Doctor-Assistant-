@@ -4,24 +4,44 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.stylefeng.guns.common.persistence.model.Heartdis">
-        <id column="id" property="id" />
-        <result column="patient_id" property="patientId" />
-        <result column="age" property="age" />
-        <result column="sex" property="sex" />
-        <result column="cp" property="cp" />
-        <result column="trestbpss" property="trestbpss" />
-        <result column="chol" property="chol" />
-        <result column="fbs" property="fbs" />
-        <result column="restecg" property="restecg" />
-        <result column="thalach" property="thalach" />
-        <result column="exang" property="exang" />
-        <result column="oldpeak" property="oldpeak" />
-        <result column="slope" property="slope" />
-        <result column="ca" property="ca" />
-        <result column="thal" property="thal" />
-        <result column="num" property="num" />
+        <id column="id" property="id"/>
+        <result column="patient_id" property="patientId"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <result column="cp" property="cp"/>
+        <result column="trestbpss" property="trestbpss"/>
+        <result column="chol" property="chol"/>
+        <result column="fbs" property="fbs"/>
+        <result column="restecg" property="restecg"/>
+        <result column="thalach" property="thalach"/>
+        <result column="exang" property="exang"/>
+        <result column="oldpeak" property="oldpeak"/>
+        <result column="slope" property="slope"/>
+        <result column="ca" property="ca"/>
+        <result column="thal" property="thal"/>
+        <result column="num" property="num"/>
     </resultMap>
 
+    <select id="countByAge" parameterType="Integer" resultType="java.lang.Long">
+        select
+         COALESCE(COUNT(id),0)
+        from heartdis
+        where ca=#{ca} AND  (age BETWEEN  #{start} and  #{end})
+     </select>
 
 
+
+    <select id="countByThalach" parameterType="Integer" resultType="java.lang.Long">
+        select
+        COALESCE(COUNT(id),0)
+        from heartdis
+        where ca=#{ca} AND  (thalach BETWEEN  #{start} and  #{end})
+    </select>
+
+    <select id="countByChol" parameterType="Integer" resultType="java.lang.Long">
+        select
+        COALESCE(COUNT(id),0)
+        from heartdis
+        where ca=#{ca} AND  (chol BETWEEN  #{start} and  #{end})
+    </select>
 </mapper>
